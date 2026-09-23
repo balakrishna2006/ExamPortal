@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamSphere | Smart & Secure Online Examination Portal</title>
+  <meta name="description" content="Next-generation online examination portal with AI-proctoring, browser lockdown, real-time sync, and granular performance analytics.">
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" th:href="@{/css/portal.css}" href="/css/portal.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="container announcement-content">
+      <span class="announcement-badge">Notice</span>
+      <span class="announcement-text" th:text="${notices != null and !notices.isEmpty() ? notices[0] : 'Semester-End Examination Hall Tickets (2026-2027) are now live for download.'}">
+        Semester-End Examination Hall Tickets (2026-2027) are now live for download.
+      </span>
+      <a href="#system-check" class="announcement-link">Run System Check &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <span>ExamSphere</span>
+        <span class="brand-badge">PORTAL</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#schedule" class="nav-link">Live Exams</a></li>
+          <li><a href="#portals" class="nav-link">Portals</a></li>
+          <li><a href="#system-check" class="nav-link">System Check</a></li>
+          <li><a href="#guidelines" class="nav-link">Guidelines</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="nav-actions">
+        <button class="btn btn-outline open-auth-btn" data-role="student">Sign In</button>
+        <a href="#quick-access" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Enter Exam
+        </a>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="container hero-grid">
+      
+      <!-- Hero Left: Value Proposition -->
+      <div class="hero-content">
+        <div class="hero-pill">
+          <span class="hero-pill-icon"></span>
+          <span>Next-Gen Academic Testing Engine • Session 2026</span>
+        </div>
+
+        <h1 class="hero-title">
+          Smart, Secure & <br>
+          <span class="hero-gradient-text">AI-Proctored</span> Testing
+        </h1>
+
+        <p class="hero-desc">
+          Empowering academic institutions, examiners, and candidates with seamless, tamper-proof online assessments. Features automated proctoring, instant response sync, and real-time scorecards.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#quick-access" class="btn btn-primary btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Enter Exam Room
+          </a>
+          <a href="#schedule" class="btn btn-outline btn-lg">Browse Schedule</a>
+          <button class="btn btn-secondary btn-lg open-auth-btn" data-role="student">Student Portal</button>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="hero-security-badges">
+          <div class="security-badge-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>Anti-Cheat Lockdown</span>
+          </div>
+          <div class="security-badge-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 14 14"></polyline>
+            </svg>
+            <span>Real-time Auto-Save</span>
+          </div>
+          <div class="security-badge-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <span>Webcam Proctored</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Right: Interactive Quick Exam Access Card -->
+      <div class="quick-access-card" id="quick-access">
+        <div class="card-header-badge">
+          <span class="card-tag">Fast Access</span>
+          <div class="card-status-indicator">
+            <span class="card-status-dot"></span>
+            <span>Gateway Ready</span>
+          </div>
+        </div>
+
+        <h3>Quick Exam Entry</h3>
+        <p>Have a test token or examination room key? Enter your code below to launch your session.</p>
+
+        <form id="exam-code-form" class="exam-code-form">
+          <div class="input-group">
+            <label class="input-label" for="exam-code-input">Exam Room Key / Assessment Code</label>
+            <div class="input-field-wrapper">
+              <span class="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input 
+                type="text" 
+                id="exam-code-input" 
+                class="exam-code-input" 
+                placeholder="e.g. LIVE-NET401" 
+                maxlength="15" 
+                autocomplete="off"
+                required>
+            </div>
+          </div>
+
+          <!-- Hardware status indicator lights -->
+          <div class="quick-system-checks">
+            <div class="check-light-item">
+              <svg class="status-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Cam OK</span>
+            </div>
+            <div class="check-light-item">
+              <svg class="status-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Mic OK</span>
+            </div>
+            <div class="check-light-item">
+              <svg class="status-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Network OK</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            <span>Enter Exam Hall</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <div class="sample-codes-hint">
+            <span>Try sample codes:</span>
+            <div>
+              <a href="#" class="sample-code-link" data-code="LIVE-NET401">LIVE-NET401</a> • 
+              <a href="#" class="sample-code-link" data-code="ALGO-302">ALGO-302</a> • 
+              <a href="#" class="sample-code-link" data-code="MOCK-APT1">MOCK-APT1</a>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Key Statistics Strip -->
+  <section class="stats-strip">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number" th:text="${stats != null ? stats['activeExams'] : '18+'}">18+</div>
+          <div class="stat-label">Active Exams Today</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon indigo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number" th:text="${stats != null ? stats['studentsTested'] : '145,280+'}">145,280+</div>
+          <div class="stat-label">Candidates Evaluated</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon emerald">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number" th:text="${stats != null ? stats['institutions'] : '120+'}">120+</div>
+          <div class="stat-label">Partner Colleges & Labs</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon amber">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="stat-number" th:text="${stats != null ? stats['proctorAccuracy'] : '99.94%'}">99.94%</div>
+          <div class="stat-label">Proctoring Integrity</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role Portals Section -->
+  <section class="section" id="portals">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Dedicated Gateways</span>
+        <h2 class="section-title">Designed for Every Academic Stakeholder</h2>
+        <p class="section-desc">Tailored control panels with dedicated security, role permissions, and specialized assessment workflows.</p>
+      </div>
+
+      <div class="portal-roles-grid">
+        
+        <!-- Student Card -->
+        <div class="role-card highlight">
+          <span class="role-card-banner">Most Popular</span>
+          <div class="role-icon-box student">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <h3 class="role-title">Candidate & Student Zone</h3>
+          <p class="role-desc">Take semester finals, midterms, and mock practice series with instant progress save and scorecards.</p>
+          <ul class="role-features">
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Access active exams via Roll No. or Passcode</span>
+            </li>
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Download digital Hall Tickets & Admit Cards</span>
+            </li>
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Topic-wise strength & weakness performance report</span>
+            </li>
+          </ul>
+          <button class="btn btn-primary open-auth-btn" data-role="student">Enter Student Portal &rarr;</button>
+        </div>
+
+        <!-- Faculty / Examiner Card -->
+        <div class="role-card">
+          <div class="role-icon-box faculty">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+          </div>
+          <h3 class="role-title">Examiner & Faculty Desk</h3>
+          <p class="role-desc">Author question banks, configure proctoring stringency, and evaluate candidate submissions in real-time.</p>
+          <ul class="role-features">
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Create MCQ, Code Compiler & Descriptive Tests</span>
+            </li>
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Live proctoring dashboard with violation alerts</span>
+            </li>
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Automated grading and rubric-based subjective scoring</span>
+            </li>
+          </ul>
+          <button class="btn btn-outline open-auth-btn" data-role="faculty">Faculty Sign In &rarr;</button>
+        </div>
+
+        <!-- Admin Card -->
+        <div class="role-card">
+          <div class="role-icon-box admin">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3 class="role-title">Institutional Admin</h3>
+          <p class="role-desc">Complete administrative governance, batch registrations, audit trails, and system-wide security logs.</p>
+          <ul class="role-features">
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Bulk candidate & department timetable management</span>
+            </li>
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Comprehensive audit logs & anti-cheat flag reviews</span>
+            </li>
+            <li class="role-feature-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Export verifiable grade sheets and certificates</span>
+            </li>
+          </ul>
+          <button class="btn btn-outline open-auth-btn" data-role="admin">Admin Console &rarr;</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Live & Upcoming Exam Schedule Board -->
+  <section class="section section-alt" id="schedule">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Test Matrix</span>
+        <h2 class="section-title">Active & Scheduled Examinations</h2>
+        <p class="section-desc">Search upcoming tests, join currently live exam rooms, or start free practice mocks.</p>
+      </div>
+
+      <!-- Filter Tabs & Search -->
+      <div class="schedule-controls">
+        <div class="filter-tabs">
+          <button class="tab-btn active" data-filter="ALL">All Tests</button>
+          <button class="tab-btn" data-filter="LIVE">Live Now</button>
+          <button class="tab-btn" data-filter="UPCOMING">Upcoming Today</button>
+          <button class="tab-btn" data-filter="MOCK">Practice Mocks</button>
+        </div>
+
+        <div class="search-box">
+          <span class="search-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+          <input type="text" id="exam-search-input" class="search-input" placeholder="Search by subject or code...">
+        </div>
+      </div>
+
+      <!-- Exam Cards Grid -->
+      <div class="exams-grid">
+        
+        <!-- Render from Spring Boot Model -->
+        <div th:each="exam : ${exams}" class="exam-card" th:attr="data-status=${exam.status}">
+          <div class="exam-card-top">
+            <span class="exam-dept-badge" th:text="${exam.department}">Computer Science</span>
+            
+            <span th:if="${exam.status == 'LIVE'}" class="status-badge live">
+              <span class="status-dot"></span> LIVE
+            </span>
+            <span th:if="${exam.status == 'UPCOMING'}" class="status-badge upcoming">
+              <span class="status-dot"></span> UPCOMING
+            </span>
+            <span th:if="${exam.status == 'MOCK'}" class="status-badge mock">
+              <span class="status-dot"></span> MOCK
+            </span>
+          </div>
+
+          <div class="exam-code" th:text="${exam.code}">CS-401</div>
+          <h4 class="exam-card-title" th:text="${exam.title}">Advanced Computer Networks & Security</h4>
+
+          <div class="exam-meta-list">
+            <div class="exam-meta-row">
+              <span class="exam-meta-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Window:
+              </span>
+              <span class="exam-meta-value" th:text="${exam.scheduleTime}">Today, 10:00 AM</span>
+            </div>
+            <div class="exam-meta-row">
+              <span class="exam-meta-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"></path><circle cx="12" cy="12" r="9"></circle></svg>
+                Duration:
+              </span>
+              <span class="exam-meta-value" th:text="${exam.duration + ' (' + exam.totalQuestions + ' Questions)'}">90 Mins (60 Questions)</span>
+            </div>
+            <div class="exam-meta-row">
+              <span class="exam-meta-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Proctoring:
+              </span>
+              <span class="exam-meta-value" th:text="${exam.proctorType}">Full AI Proctoring</span>
+            </div>
+          </div>
+
+          <div class="exam-card-footer">
+            <button 
+              th:if="${exam.status == 'LIVE'}" 
+              class="btn btn-primary exam-action-btn" 
+              style="width: 100%;"
+              th:attr="data-code=${exam.sampleAccessKey},data-title=${exam.title}">
+              Join Live Exam
+            </button>
+            <button 
+              th:if="${exam.status == 'UPCOMING'}" 
+              class="btn btn-outline exam-action-btn" 
+              style="width: 100%;"
+              th:attr="data-code=${exam.sampleAccessKey},data-title=${exam.title}">
+              Pre-Register / Code
+            </button>
+            <button 
+              th:if="${exam.status == 'MOCK'}" 
+              class="btn btn-accent exam-action-btn" 
+              style="width: 100%;"
+              th:attr="data-code=${exam.sampleAccessKey},data-title=${exam.title}">
+              Start Mock Test
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre-Exam System Diagnostic Check Widget -->
+  <section class="section" id="system-check">
+    <div class="container">
+      <div class="system-check-banner">
+        <div class="system-check-header">
+          <div>
+            <span class="section-tag" style="background: rgba(255, 255, 255, 0.15); color: #93c5fd;">Pre-Flight Check</span>
+            <h3>System Readiness Diagnostic</h3>
+            <p>Ensure your device, camera, microphone, and internet latency comply with examination proctoring standards before your paper begins.</p>
+          </div>
+          <button id="run-diagnostic-btn" class="btn btn-accent btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Run System Diagnostic
+          </button>
+        </div>
+
+        <!-- 4 Step Hardware Check Items -->
+        <div class="check-items-grid">
+          
+          <div class="check-item-box" id="check-browser">
+            <div class="check-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <div class="check-item-title">Browser Compatibility</div>
+            <div class="check-item-status">Ready for test</div>
+          </div>
+
+          <div class="check-item-box" id="check-webcam">
+            <div class="check-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </div>
+            <div class="check-item-title">Webcam & Video Feed</div>
+            <div class="check-item-status">Ready for test</div>
+          </div>
+
+          <div class="check-item-box" id="check-audio">
+            <div class="check-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </div>
+            <div class="check-item-title">Microphone Audio</div>
+            <div class="check-item-status">Ready for test</div>
+          </div>
+
+          <div class="check-item-box" id="check-network">
+            <div class="check-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+              </svg>
+            </div>
+            <div class="check-item-title">Network Latency</div>
+            <div class="check-item-status">Ready for test</div>
+          </div>
+
+        </div>
+
+        <div class="diagnostic-actions-bar">
+          <div class="diagnostic-meta">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span id="diagnostic-meta-text">Diagnostic check is required at least 15 minutes before your test slot.</span>
+          </div>
+          <span style="font-size: 0.85rem; color: #94a3b8;">Chrome 110+, Edge 110+, or Firefox 115+ recommended</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Core Features Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Enterprise Capabilities</span>
+        <h2 class="section-title">Built for Reliability, Integrity & Speed</h2>
+        <p class="section-desc">State of the art examination infrastructure designed to conduct seamless tests at scale.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h4 class="feature-title">AI Proctoring & Dual Feed</h4>
+          <p class="feature-desc">Continuous face tracking, multiple person detection, mobile phone detection, and ambient audio monitoring to uphold exam sanctity.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h4 class="feature-title">Secure Browser Lockdown</h4>
+          <p class="feature-desc">Prevents tab switching, dual monitors, copy-paste actions, keyboard shortcuts (Alt+Tab, PrintScreen), and background screen sharing apps.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+          </div>
+          <h4 class="feature-title">Offline Resilient Auto-Save</h4>
+          <p class="feature-desc">Candidates never lose answers. Every keystroke and selection is cached locally and synchronized the instant connectivity resumes.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <h4 class="feature-title">Instant Results & Analytics</h4>
+          <p class="feature-desc">Immediate scorecards for objective questions, question difficulty distribution, time-spent analysis, and verified digital transcripts.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <h4 class="feature-title">Built-in Code Sandbox</h4>
+          <p class="feature-desc">Integrated code editor supporting Java, Python, C++, and SQL with auto-test case evaluation and syntax error highlighting.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+            </svg>
+          </div>
+          <h4 class="feature-title">Low-Bandwidth Optimized</h4>
+          <p class="feature-desc">Engineered to run seamlessly on 2G/3G connections and mobile hotspots without video stream degradation or packet loss.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guidelines & Candidate Code of Conduct -->
+  <section class="section" id="guidelines">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Candidate Advisory</span>
+        <h2 class="section-title">Examination Protocol & Code of Conduct</h2>
+        <p class="section-desc">Ensure complete compliance with our strict academic integrity standards before entering the testing environment.</p>
+      </div>
+
+      <div class="guidelines-grid">
+        <!-- Do's -->
+        <div class="guideline-card dos">
+          <div class="guideline-card-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Mandatory Instructions (DO's)</span>
+          </div>
+          <ul class="guideline-list">
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Sit in a well-lit room with your face clearly visible to the camera at all times.</span>
+            </li>
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Have your original College/National Photo ID Card ready for identity verification.</span>
+            </li>
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Ensure your device is connected to a power supply or has at least 80% battery backup.</span>
+            </li>
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Use the latest versions of Google Chrome, MS Edge, or Mozilla Firefox.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Don'ts -->
+        <div class="guideline-card donts">
+          <div class="guideline-card-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <span>Strictly Prohibited (DON'Ts)</span>
+          </div>
+          <ul class="guideline-list">
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>Do not switch browser tabs or minimize the examination window (3 warnings will terminate test).</span>
+            </li>
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>Smartphones, smartwatches, external earbuds, and secondary monitors are strictly forbidden.</span>
+            </li>
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>No other person is permitted to enter the testing area during the live session.</span>
+            </li>
+            <li class="guideline-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>Do not read questions aloud; unexpected background speech is flagged by the audio auditor.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion Section -->
+  <section class="section section-alt" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Candidate Help</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Quick answers regarding test procedures, technical issues, and grading policies.</p>
+      </div>
+
+      <div class="faq-wrapper">
+        
+        <div class="faq-item active">
+          <button class="faq-header">
+            <span>What happens if my internet connection drops during an exam?</span>
+            <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-content">
+            Our platform features continuous local auto-save. If your connection drops, your responses are securely cached in your browser. Reconnect your network and refresh the page to resume exactly where you left off. The exam timer accounts for documented disruptions.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-header">
+            <span>How does the AI Proctor detect violations?</span>
+            <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-content">
+            The AI Proctor tracks continuous face presence, gaze anomalies, multiple faces in view, unauthorized mobile devices, and tab/window switching. Suspected violations trigger audio-visual warnings and are flagged for human invigilator review.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-header">
+            <span>Can I review or change my answers before final submission?</span>
+            <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-content">
+            Yes. The exam interface includes a Question Palette allowing you to mark questions for review, navigate between sections, and alter choices freely until the test duration expires or you click "Submit Final Exam".
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-header">
+            <span>When will the official results and transcripts be declared?</span>
+            <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-content">
+            Objective MCQ mock tests and automated assessments generate instant result summaries. For official university semester examinations with subjective or coding questions, final verified scorecards are released within 48 to 72 hours via the Student Portal.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-header">
+            <span>What should I do if my camera or microphone fails the diagnostic check?</span>
+            <svg class="faq-icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-content">
+            Ensure that your browser has been granted permission to access media devices (look for the lock/camera icon next to the browser URL address bar). Close any other applications using the webcam such as Zoom, Teams, or Skype, then refresh the page.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        
+        <div class="footer-brand">
+          <h4>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            ExamSphere
+          </h4>
+          <p class="footer-desc">
+            Next-generation examination administration, high-concurrency testing engine, and AI invigilation platform for educational excellence.
+          </p>
+          <div class="support-box">
+            <div class="support-phone">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span>+1 (800) 456-EXAM</span>
+            </div>
+            <div class="support-hours">Live Candidate Helpdesk • 24x7 Exam Operations</div>
+          </div>
+        </div>
+
+        <div>
+          <h5 class="footer-title">Examination Portals</h5>
+          <ul class="footer-links">
+            <li><a href="#" class="footer-link open-auth-btn" data-role="student">Student Login</a></li>
+            <li><a href="#" class="footer-link open-auth-btn" data-role="faculty">Faculty / Examiner</a></li>
+            <li><a href="#" class="footer-link open-auth-btn" data-role="admin">Admin Console</a></li>
+            <li><a href="#schedule" class="footer-link">Exam Timetable 2026</a></li>
+            <li><a href="#quick-access" class="footer-link">Quick Token Entry</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="footer-title">Candidate Resources</h5>
+          <ul class="footer-links">
+            <li><a href="#system-check" class="footer-link">System Diagnostic Test</a></li>
+            <li><a href="#guidelines" class="footer-link">Exam Day Code of Conduct</a></li>
+            <li><a href="#faq" class="footer-link">Disconnection & Help FAQ</a></li>
+            <li><a href="#" class="footer-link">Download Admit Card</a></li>
+            <li><a href="#" class="footer-link">Verification of Results</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="footer-title">Security & Compliance</h5>
+          <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 14px;">
+            Certified ISO 27001 Information Security, FERPA & GDPR Compliant, 256-Bit SSL Encrypted assessment tunnels.
+          </p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 0.75rem; background: #1e293b; padding: 4px 8px; border-radius: 4px; color: #38bdf8; font-weight: 600;">ISO 27001</span>
+            <span style="font-size: 0.75rem; background: #1e293b; padding: 4px 8px; border-radius: 4px; color: #34d399; font-weight: 600;">FERPA</span>
+            <span style="font-size: 0.75rem; background: #1e293b; padding: 4px 8px; border-radius: 4px; color: #a78bfa; font-weight: 600;">TLS 1.3</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 ExamSphere Assessment Technologies. ADDA Lab Academic Division. All rights reserved.</div>
+        <div style="display: flex; gap: 20px;">
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+          <a href="#" class="footer-link">Candidate Charter</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Exam Hall Launch Confirmation -->
+  <div class="modal-overlay" id="exam-launch-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h4 class="modal-title">Exam Hall Entry Confirmation</h4>
+        <button class="modal-close-btn" id="launch-modal-close" aria-label="Close dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #1d4ed8; text-transform: uppercase;">Room Key Verified</div>
+          <div id="launch-exam-code-display" style="font-size: 1.6rem; font-weight: 800; color: #0f172a; letter-spacing: 2px;">EXAM-2026</div>
+        </div>
+
+        <p style="font-size: 0.92rem; color: #475569; margin-bottom: 16px; line-height: 1.5;">
+          Clicking <strong>"Start Assessment"</strong> will transition your browser to full-screen lockdown mode and activate webcam invigilation.
+        </p>
+
+        <ul style="font-size: 0.85rem; color: #64748b; margin-bottom: 24px; padding-left: 18px; display: flex; flex-direction: column; gap: 6px;">
+          <li>Full-screen enforcement is active. Exiting triggers an incident report.</li>
+          <li>Ensure nobody else enters your physical workspace.</li>
+          <li>Timer commences immediately upon room entrance.</li>
+        </ul>
+
+        <button id="launch-modal-confirm" class="btn btn-primary btn-lg" style="width: 100%;">
+          Start Assessment Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Universal Sign In -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h4 class="modal-title" id="auth-modal-title">Portal Authentication</h4>
+        <button class="modal-close-btn" id="auth-modal-close" aria-label="Close dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" data-role="student">Candidate</button>
+          <button class="auth-tab-btn" data-role="faculty">Examiner</button>
+          <button class="auth-tab-btn" data-role="admin">Admin</button>
+        </div>
+
+        <form id="auth-form">
+          <div class="form-group">
+            <label class="form-label" id="auth-id-label" for="auth-id-input">Student Registration / Roll No.</label>
+            <input type="text" id="auth-id-input" class="form-input" placeholder="e.g. 2026-CS-1048" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="auth-password-input">Password / Access PIN</label>
+            <input type="password" id="auth-password-input" class="form-input" placeholder="••••••••••••" required>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" checked>
+              <span>Remember device</span>
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            Sign In to Portal
+          </button>
+
+          <div style="text-align: center; margin-top: 14px;">
+            <a href="#" class="demo-fill-btn" id="demo-fill-btn">Click here to Auto-Fill Sample Credentials</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script th:src="@{/js/portal.js}" src="/js/portal.js"></script>
+</body>
+</html>
