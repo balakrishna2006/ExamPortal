@@ -25,9 +25,9 @@ function showToast(message, type = 'info') {
   toast.className = `toast ${type}`;
   toast.innerHTML = `
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      ${type === 'success' 
-        ? '<polyline points="20 6 9 17 4 12"></polyline>' 
-        : type === 'error'
+      ${type === 'success'
+      ? '<polyline points="20 6 9 17 4 12"></polyline>'
+      : type === 'error'
         ? '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>'
         : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>'}
     </svg>
@@ -137,8 +137,9 @@ function initScheduleFilters() {
 
       const matchesTab = (filter === 'ALL') || (status === filter);
       const matchesSearch = query === '' || text.includes(query);
+      const matchesTitle = text.includes('exam');
 
-      if (matchesTab && matchesSearch) {
+      if (matchesTab && matchesSearch && matchesTitle) {
         card.style.display = 'flex';
       } else {
         card.style.display = 'none';
