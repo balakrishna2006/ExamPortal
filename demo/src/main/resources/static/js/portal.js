@@ -139,7 +139,7 @@ function initScheduleFilters() {
       const matchesSearch = query === '' || text.includes(query);
       const matchesStatus = status !== 'CANCELLED';
 
-      if (matchesTab && matchesSearch) {
+      if (matchesTab && matchesSearch && matchesStatus) {
         card.style.display = 'flex';
       } else {
         card.style.display = 'none';
