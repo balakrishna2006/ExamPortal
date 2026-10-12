@@ -10,13 +10,15 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                bat 'mvnw.cmd clean verify'
+                dir('demo') {
+                    bat 'mvnw.cmd clean verify'
+                }
             }
         }
 
         stage('Package') {
             steps {
-                archiveArtifacts artifacts: 'target/*.jar',
+                archiveArtifacts artifacts: 'demo/target/*.jar',
                                  fingerprint: true
             }
         }
