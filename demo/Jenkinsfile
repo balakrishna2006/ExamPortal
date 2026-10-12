@@ -1,10 +1,5 @@
-
 pipeline {
     agent any
-
-    options {
-        timestamps()
-    }
 
     stages {
         stage('Checkout') {
@@ -21,17 +16,15 @@ pipeline {
 
         stage('Package') {
             steps {
-                archiveArtifacts(
-                    artifacts: 'target/*.jar',
-                    fingerprint: true
-                )
+                archiveArtifacts artifacts: 'target/*.jar',
+                                 fingerprint: true
             }
         }
     }
 
     post {
         success {
-            echo 'SUCCESS: Spring Boot build and tests passed!'
+            echo 'ExamPortal CI pipeline succeeded!'
         }
         failure {
             echo 'FAILED: Check the Jenkins Console Output.'
