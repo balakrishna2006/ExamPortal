@@ -13,8 +13,8 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        int testBug = "Jenkins";
         
+
         // Portal Key Metrics / Statistics
         model.addAttribute("stats", Map.of(
             "activeExams", "18",
